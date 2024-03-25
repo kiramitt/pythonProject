@@ -229,7 +229,7 @@ def test_reset_app_state_button(browser):
         assert True
 # Нажатие на кнопку очищает корзину - считаю это за ожидаемый результат
 #     try:
-#         cart_badge = browser.find_element(By.CLASS_NAME, "btn btn_secondary btn_small btn_inventory")
+#         cart_badge = browser.find_element(By.ID, "remove-sauce-labs-backpack")
 #         assert False, "Кнопки Remove на карточках товара не возвращаются в исходное значение"
 #     except NoSuchElementException:
 #         assert True
