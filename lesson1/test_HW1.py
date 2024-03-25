@@ -51,8 +51,15 @@ def test_add_card_to_barge_from_catalog(browser):
     test_auth_positive(browser)
     time.sleep(2)
     browser.find_element(By.ID, "add-to-cart-sauce-labs-backpack").click()
-    cart_badge = browser.find_element(By.CLASS_NAME, "shopping_cart_badge").text
-    assert cart_badge == '1', 'Товар не добавлен в корзину'
+    # cart_badge = browser.find_element(By.CLASS_NAME, "shopping_cart_badge").text
+    # assert cart_badge == '1', 'Товар не добавлен в корзину'
+    browser.find_element(By.CLASS_NAME, "shopping_cart_link").click()
+    time.sleep(2)
+    try:
+        browser.find_element(By.ID, "item_4_title_link")
+        assert True
+    except NoSuchElementException:
+        assert False, "Товар не добавлен в корзину"
 
 
 # 2. Удаление товара из корзины через корзину
@@ -74,8 +81,15 @@ def test_delete_card_from_barge(browser):
 def test_add_card_to_barge_from_card_details(browser):
     test_card_details_from_image(browser)
     browser.find_element(By.ID, "add-to-cart-sauce-labs-backpack").click()
-    cart_badge = browser.find_element(By.CLASS_NAME, "shopping_cart_badge").text
-    assert cart_badge == '1', 'Товар не добавлен в корзину'
+    # cart_badge = browser.find_element(By.CLASS_NAME, "shopping_cart_badge").text
+    # assert cart_badge == '1', 'Товар не добавлен в корзину'
+    browser.find_element(By.CLASS_NAME, "shopping_cart_link").click()
+    time.sleep(2)
+    try:
+        browser.find_element(By.ID, "item_4_title_link")
+        assert True
+    except NoSuchElementException:
+        assert False, "Товар не добавлен в корзину"
 
 
 # 4. Удаление товара из корзины через карточку товара
