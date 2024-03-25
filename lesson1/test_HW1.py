@@ -1,10 +1,8 @@
 import time
-
 from selenium import webdriver
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
-
 import pytest
 
 # Домашнее задание к первому уроку
@@ -66,7 +64,7 @@ def test_delete_card_from_barge(browser):
     browser.find_element(By.ID, "remove-sauce-labs-backpack").click()
     time.sleep(2)
     try:
-        cart_badge = browser.find_element(By.CLASS_NAME, "shopping_cart_badge")
+        browser.find_element(By.CLASS_NAME, "shopping_cart_badge")
         assert False, "Товар не удален из корзины"
     except NoSuchElementException:
         assert True
@@ -87,10 +85,11 @@ def test_delete_card_to_barge_from_card_details(browser):
     browser.find_element(By.ID, "remove-sauce-labs-backpack").click()
     time.sleep(2)
     try:
-        cart_badge = browser.find_element(By.CLASS_NAME, "shopping_cart_badge")
+        browser.find_element(By.CLASS_NAME, "shopping_cart_badge")
         assert False, "Товар не удален из корзины"
     except NoSuchElementException:
         assert True
+
 
 # **Карточка товара**
 # 1. Успешный переход к карточке товара после клика на картинку товара
@@ -131,13 +130,13 @@ def test_order_positive(browser):
     browser.find_element(By.ID, 'finish').click()
     time.sleep(2)
     assert browser.current_url == f'{url}checkout-complete.html'
-    message = browser.find_element(By.CLASS_NAME,"complete-header").text
+    message = browser.find_element(By.CLASS_NAME, "complete-header").text
     assert message == "Thank you for your order!", "Заказ не совершен"
 
 
 # **Фильтр**
 # 1. Проверка работоспособности фильтра (A to Z)
-def test_filter_A_to_Z(browser):
+def test_filter_a_to_z(browser):
     test_auth_positive(browser)
     # test_filter_Z_to_A(browser)
     sort_dropdown = browser.find_element(By.CLASS_NAME, "product_sort_container")
@@ -151,7 +150,7 @@ def test_filter_A_to_Z(browser):
 
 
 # 2. Проверка работоспособности фильтра (Z to A)
-def test_filter_Z_to_A(browser):
+def test_filter_z_to_a(browser):
     test_auth_positive(browser)
     sort_dropdown = browser.find_element(By.CLASS_NAME, "product_sort_container")
     select = Select(sort_dropdown)
@@ -211,6 +210,8 @@ def test_about_button(browser):
     browser.find_element(By.ID, "about_sidebar_link").click()
     time.sleep(2)
     assert browser.current_url == "https://saucelabs.com/", "Неверная страница"
+
+
 # Страница нерабочая с ошибкой, но считаю, что так и надо, чтобы тест проходил
 
 
@@ -223,17 +224,17 @@ def test_reset_app_state_button(browser):
     browser.find_element(By.ID, "reset_sidebar_link").click()
     time.sleep(2)
     try:
-        cart_badge = browser.find_element(By.CLASS_NAME, "shopping_cart_badge")
+        browser.find_element(By.CLASS_NAME, "shopping_cart_badge")
         assert False, "Товар не удален из корзины"
     except NoSuchElementException:
         assert True
-# Нажатие на кнопку очищает корзину - считаю это за ожидаемый результат
-#     try:
-#         cart_badge = browser.find_element(By.ID, "remove-sauce-labs-backpack")
-#         assert False, "Кнопки Remove на карточках товара не возвращаются в исходное значение"
-#     except NoSuchElementException:
-#         assert True
-# Кнопки Remove на карточках товара не возвращаются в Add to cart
+    # Нажатие на кнопку очищает корзину - считаю это за ожидаемый результат
+    #     try:
+    #         browser.find_element(By.ID, "remove-sauce-labs-backpack")
+    #         assert False, "Кнопки Remove на карточках товара не возвращаются в исходное значение"
+    #     except NoSuchElementException:
+    #         assert True
+    # Кнопки Remove на карточках товара не возвращаются в Add to cart
     items = browser.find_elements(By.CLASS_NAME, "inventory_item_name")
     actual_names = [item.text for item in items]
     sorted_names = sorted(actual_names)
