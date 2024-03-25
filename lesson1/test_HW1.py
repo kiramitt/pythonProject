@@ -138,7 +138,7 @@ def test_order_positive(browser):
 # 1. Проверка работоспособности фильтра (A to Z)
 def test_filter_a_to_z(browser):
     test_auth_positive(browser)
-    # test_filter_Z_to_A(browser)
+    # test_filter_z_to_a(browser)
     sort_dropdown = browser.find_element(By.CLASS_NAME, "product_sort_container")
     select = Select(sort_dropdown)
     select.select_by_value("az")
