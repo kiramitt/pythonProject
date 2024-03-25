@@ -130,7 +130,7 @@ def test_order_positive(browser):
     time.sleep(2)
     browser.find_element(By.ID, 'finish').click()
     time.sleep(2)
-    assert browser.current_url == f'{url}/checkout-complete.html'
+    assert browser.current_url == f'{url}checkout-complete.html'
     message = browser.find_element(By.CLASS_NAME,"complete-header").text
     assert message == "Thank you for your order!", "Заказ не совершен"
 
