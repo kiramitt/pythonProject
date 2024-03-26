@@ -258,9 +258,9 @@ def test_reset_app_state_button(browser):
     #         assert False, "Кнопки Remove на карточках товара не возвращаются в исходное значение"
     #     except NoSuchElementException:
     #         assert True
-    # Кнопки Remove на карточках товара не возвращаются в Add to cart
+    # Кнопки Remove на карточках товара не возвращаются в Add to cart без обновления страницы
     items = browser.find_elements(By.CLASS_NAME, "inventory_item_name")
     actual_names = [item.text for item in items]
     sorted_names = sorted(actual_names)
     assert actual_names == sorted_names, 'Названия товаров не отсортированы по умолчанию'
-# Сортировка не сбрасывается
+    # Сортировка не сбрасывается
