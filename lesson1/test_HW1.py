@@ -81,6 +81,7 @@ def test_delete_card_from_cart(browser):
 def test_add_card_to_cart_from_card_details(browser):
     test_card_details_from_image(browser)
     browser.find_element(By.ID, "add-to-cart").click()
+    time.sleep(2)
     # cart_badge = browser.find_element(By.CLASS_NAME, "shopping_cart_badge").text
     # assert cart_badge == '1', 'Товар не добавлен в корзину'
     browser.find_element(By.CLASS_NAME, "shopping_cart_link").click()
