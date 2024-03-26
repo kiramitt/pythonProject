@@ -43,3 +43,4 @@ error_message = "//h3[@data-test='error']"
 # --------------------------------------------------------------------------------
 add_to_cart_buttons = "button[data-test^='add-to-cart']"
 find_by_text = '//*[text()="{}"]'
+remove_all_from_cart_buttons = "button[data-test^='remove']"

@@ -284,3 +284,16 @@ def test_add_cards_to_cart_from_catalog(browser):
             assert True
         except NoSuchElementException:
             assert False, f'Товар {title} не добавлен в корзину'
+
+
+def test_delete_cards_from_cart(browser):
+    test_add_cards_to_cart_from_catalog(browser)
+    browser.find_element(By.CLASS_NAME, "shopping_cart_link").click()
+    remove_from_cart_buttons = browser.find_elements(By.CSS_SELECTOR, "button[data-test^='remove']")
+    for button in remove_from_cart_buttons:
+        button.click()
+    try:
+        browser.find_element(By.CLASS_NAME, "inventory_item_name")
+        assert False, f'Товары не удалены из корзины'
+    except NoSuchElementException:
+        assert True

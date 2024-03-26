@@ -228,3 +228,16 @@ def test_add_cards_to_cart_from_catalog(browser):
             assert True
         except NoSuchElementException:
             assert False, add_cards_to_cart_from_catalog.format(title)
+
+
+def test_delete_cards_from_cart(browser):
+    test_add_cards_to_cart_from_catalog(browser)
+    browser.find_element(By.CLASS_NAME, shopping_cart_link).click()
+    remove_from_cart_buttons = browser.find_elements(By.CSS_SELECTOR, remove_all_from_cart_buttons)
+    for button in remove_from_cart_buttons:
+        button.click()
+    try:
+        browser.find_element(By.CLASS_NAME, item_names)
+        assert False, delete_cards_from_cart
+    except NoSuchElementException:
+        assert True
