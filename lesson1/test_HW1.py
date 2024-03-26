@@ -68,26 +68,6 @@ def test_add_card_to_cart_from_catalog(browser):
         assert False, "Товар не добавлен в корзину"
 
 
-def test_add_cards_to_cart_from_catalog(browser):
-    test_auth_positive(browser)
-    add_to_cart_buttons = browser.find_elements(By.CSS_SELECTOR,"button[data-test^='add-to-cart']")
-    for button in add_to_cart_buttons:
-        button.click()
-    card_titles = []
-    titles = browser.find_elements(By.CLASS_NAME, "inventory_item_name")
-    for title in titles:
-        card_titles.append(title.text)
-    # browser.find_element(By.ID, "remove-sauce-labs-backpack").click()
-    print(card_titles)
-    browser.find_element(By.CLASS_NAME, "shopping_cart_link").click()
-    for title in card_titles:
-        try:
-            browser.find_element(By.XPATH, f'//*[text()="{title}"]')
-            assert True
-        except NoSuchElementException:
-            assert False, f'Товар {title} не добавлен в корзину'
-
-
 # 2. Удаление товара из корзины через корзину
 def test_delete_card_from_cart(browser):
     test_add_card_to_cart_from_catalog(browser)
@@ -261,7 +241,7 @@ def test_about_button(browser):
 
 # 3. Проверка работоспособности кнопки "Reset App State"
 def test_reset_app_state_button(browser):
-    test_add_card_to_cart_from_catalog(browser)
+    test_add_cards_to_cart_from_catalog(browser)
     # test_filter_high_to_low(browser)
     browser.find_element(By.ID, "react-burger-menu-btn").click()
     # time.sleep(2)
@@ -284,3 +264,23 @@ def test_reset_app_state_button(browser):
     sorted_names = sorted(actual_names)
     assert actual_names == sorted_names, 'Названия товаров не отсортированы по умолчанию'
     # Сортировка не сбрасывается
+
+
+# --------------------------------------------------------------------------------
+def test_add_cards_to_cart_from_catalog(browser):
+    test_auth_positive(browser)
+    add_to_cart_buttons = browser.find_elements(By.CSS_SELECTOR,"button[data-test^='add-to-cart']")
+    for button in add_to_cart_buttons:
+        button.click()
+    card_titles = []
+    titles = browser.find_elements(By.CLASS_NAME, "inventory_item_name")
+    for title in titles:
+        card_titles.append(title.text)
+    # browser.find_element(By.ID, "remove-sauce-labs-backpack").click()
+    browser.find_element(By.CLASS_NAME, "shopping_cart_link").click()
+    for title in card_titles:
+        try:
+            browser.find_element(By.XPATH, f'//*[text()="{title}"]')
+            assert True
+        except NoSuchElementException:
+            assert False, f'Товар {title} не добавлен в корзину'

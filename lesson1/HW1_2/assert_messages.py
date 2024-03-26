@@ -8,3 +8,4 @@ order_pos_message = "Заказ не совершен"
 sorting_message = "Товары не отсортированы"
 logout_message = "Не получилось выйти из учетной записи"
 reset_add_button_message = "Кнопки Remove на карточках товара не возвращаются в исходное значение"
+add_cards_to_cart_from_catalog = 'Товар {} не добавлен в корзину'

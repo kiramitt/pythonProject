@@ -121,7 +121,7 @@ def test_filter_a_to_z(browser):
     sort_dropdown = browser.find_element(By.CLASS_NAME, selector_sorting)
     select = Select(sort_dropdown)
     select.select_by_value(select_az)
-    items = browser.find_elements(By.CLASS_NAME, sorting_by_name)
+    items = browser.find_elements(By.CLASS_NAME, item_names)
     actual_names = [item.text for item in items]
     sorted_names = sorted(actual_names)
     assert actual_names == sorted_names, sorting_message + select_az
@@ -133,7 +133,7 @@ def test_filter_z_to_a(browser):
     sort_dropdown = browser.find_element(By.CLASS_NAME, selector_sorting)
     select = Select(sort_dropdown)
     select.select_by_value(select_za)
-    items = browser.find_elements(By.CLASS_NAME, sorting_by_name)
+    items = browser.find_elements(By.CLASS_NAME, item_names)
     actual_names = [item.text for item in items]
     sorted_names = list(reversed(sorted(actual_names)))
     assert actual_names == sorted_names, sorting_message + select_za
@@ -145,7 +145,7 @@ def test_filter_low_to_high(browser):
     sort_dropdown = browser.find_element(By.CLASS_NAME, selector_sorting)
     select = Select(sort_dropdown)
     select.select_by_value(select_lohi)
-    items = browser.find_elements(By.CLASS_NAME, sorting_by_price)
+    items = browser.find_elements(By.CLASS_NAME, item_prices)
     actual_names = [float(item.text.strip('$')) for item in items]
     sorted_names = sorted(actual_names)
     assert actual_names == sorted_names, sorting_message + select_lohi
@@ -157,7 +157,7 @@ def test_filter_high_to_low(browser):
     sort_dropdown = browser.find_element(By.CLASS_NAME, selector_sorting)
     select = Select(sort_dropdown)
     select.select_by_value(select_hilo)
-    items = browser.find_elements(By.CLASS_NAME, sorting_by_price)
+    items = browser.find_elements(By.CLASS_NAME, item_prices)
     actual_names = [float(item.text.strip('$')) for item in items]
     sorted_names = list(reversed(sorted(actual_names)))
     assert actual_names == sorted_names, sorting_message + select_hilo
@@ -187,7 +187,7 @@ def test_about_button(browser):
 
 # 3. Проверка работоспособности кнопки "Reset App State"
 def test_reset_app_state_button(browser):
-    test_add_card_to_cart_from_catalog(browser)
+    test_add_cards_to_cart_from_catalog(browser)
     # test_filter_high_to_low(browser)
     browser.find_element(By.ID, burger_menu_button).click()
     browser.find_element(By.ID, reset_button).click()
@@ -203,9 +203,28 @@ def test_reset_app_state_button(browser):
     #     except NoSuchElementException:
     #         assert True
     # Кнопки Remove на карточках товара не возвращаются в Add to cart без обновления страницы
-    items = browser.find_elements(By.CLASS_NAME, sorting_by_name)
+    items = browser.find_elements(By.CLASS_NAME, item_names)
     actual_names = [item.text for item in items]
     sorted_names = sorted(actual_names)
     assert actual_names == sorted_names, sorting_message
     # Сортировка не сбрасывается
 
+
+# --------------------------------------------------------------------------------
+def test_add_cards_to_cart_from_catalog(browser):
+    test_auth_positive(browser)
+    add_buttons = browser.find_elements(By.CSS_SELECTOR, add_to_cart_buttons)
+    for button in add_buttons:
+        button.click()
+    card_titles = []
+    titles = browser.find_elements(By.CLASS_NAME, item_names)
+    for title in titles:
+        card_titles.append(title.text)
+    # browser.find_element(By.ID, remove_from_cart_button).click()
+    browser.find_element(By.CLASS_NAME, shopping_cart_link).click()
+    for title in card_titles:
+        try:
+            browser.find_element(By.XPATH, find_by_text.format(title))
+            assert True
+        except NoSuchElementException:
+            assert False, add_cards_to_cart_from_catalog.format(title)

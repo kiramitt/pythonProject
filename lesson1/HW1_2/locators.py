@@ -33,10 +33,13 @@ order_complete_message = "complete-header"
 
 selector_sorting = "product_sort_container"
 
-sorting_by_name = "inventory_item_name"
-sorting_by_price = "inventory_item_price"
+item_names = "inventory_item_name"
+item_prices = "inventory_item_price"
 
 # XPATH
 # auth
 error_message = "//h3[@data-test='error']"
 
+# --------------------------------------------------------------------------------
+add_to_cart_buttons = "button[data-test^='add-to-cart']"
+find_by_text = '//*[text()="{}"]'
