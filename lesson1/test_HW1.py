@@ -80,7 +80,7 @@ def test_delete_card_from_barge(browser):
 # 3. Добавление товара в корзину из карточки товара
 def test_add_card_to_barge_from_card_details(browser):
     test_card_details_from_image(browser)
-    browser.find_element(By.ID, "add-to-cart-sauce-labs-backpack").click()
+    browser.find_element(By.ID, "add-to-cart").click()
     # cart_badge = browser.find_element(By.CLASS_NAME, "shopping_cart_badge").text
     # assert cart_badge == '1', 'Товар не добавлен в корзину'
     browser.find_element(By.CLASS_NAME, "shopping_cart_link").click()
@@ -96,7 +96,10 @@ def test_add_card_to_barge_from_card_details(browser):
 def test_delete_card_to_barge_from_card_details(browser):
     test_add_card_to_barge_from_card_details(browser)
     time.sleep(2)
-    browser.find_element(By.ID, "remove-sauce-labs-backpack").click()
+    # browser.find_element(By.ID, "remove-sauce-labs-backpack").click()
+    test_card_details_from_name(browser)
+    time.sleep(2)
+    browser.find_element(By.ID, "remove").click()
     time.sleep(2)
     try:
         browser.find_element(By.CLASS_NAME, "shopping_cart_badge")
