@@ -47,7 +47,7 @@ def test_auth_negative(browser):
 
 # **Корзина**
 # 1. Добавление товара в корзину через каталог
-def test_add_card_to_barge_from_catalog(browser):
+def test_add_card_to_cart_from_catalog(browser):
     test_auth_positive(browser)
     time.sleep(2)
     browser.find_element(By.ID, "add-to-cart-sauce-labs-backpack").click()
@@ -63,8 +63,8 @@ def test_add_card_to_barge_from_catalog(browser):
 
 
 # 2. Удаление товара из корзины через корзину
-def test_delete_card_from_barge(browser):
-    test_add_card_to_barge_from_catalog(browser)
+def test_delete_card_from_cart(browser):
+    test_add_card_to_cart_from_catalog(browser)
     time.sleep(2)
     browser.find_element(By.CLASS_NAME, "shopping_cart_link").click()
     time.sleep(2)
@@ -78,7 +78,7 @@ def test_delete_card_from_barge(browser):
 
 
 # 3. Добавление товара в корзину из карточки товара
-def test_add_card_to_barge_from_card_details(browser):
+def test_add_card_to_cart_from_card_details(browser):
     test_card_details_from_image(browser)
     browser.find_element(By.ID, "add-to-cart").click()
     # cart_badge = browser.find_element(By.CLASS_NAME, "shopping_cart_badge").text
@@ -93,8 +93,8 @@ def test_add_card_to_barge_from_card_details(browser):
 
 
 # 4. Удаление товара из корзины через карточку товара
-def test_delete_card_to_barge_from_card_details(browser):
-    test_add_card_to_barge_from_card_details(browser)
+def test_delete_card_from_cart_from_card_details(browser):
+    test_add_card_to_cart_from_card_details(browser)
     time.sleep(2)
     # browser.find_element(By.ID, "remove-sauce-labs-backpack").click()
     test_card_details_from_name(browser)
@@ -133,7 +133,7 @@ def test_order_positive(browser):
     firstname = "Emilia"
     lastname = "Night"
     zipcode = "123456"
-    test_add_card_to_barge_from_catalog(browser)
+    test_add_card_to_cart_from_catalog(browser)
     time.sleep(2)
     browser.find_element(By.CLASS_NAME, "shopping_cart_link").click()
     time.sleep(2)
@@ -234,7 +234,7 @@ def test_about_button(browser):
 
 # 3. Проверка работоспособности кнопки "Reset App State"
 def test_reset_app_state_button(browser):
-    test_add_card_to_barge_from_catalog(browser)
+    test_add_card_to_cart_from_catalog(browser)
     # test_filter_high_to_low(browser)
     browser.find_element(By.ID, "react-burger-menu-btn").click()
     time.sleep(2)
