@@ -16,7 +16,7 @@ def test_auth_positive(browser):
     browser.find_element(By.ID, username_field).send_keys(username_pos)
     browser.find_element(By.ID, password_field).send_keys(password_pos)
     browser.find_element(By.ID, login_button).click()
-    assert browser.current_url == catalog_url, auth_pos_message
+    assert browser.current_url == catalog_url, url_pos_message
 
 
 # 2. Авторизация используя некорректные данные (user, user)
@@ -176,7 +176,7 @@ def test_about_button(browser):
     test_auth_positive(browser)
     browser.find_element(By.ID, burger_menu_button).click()
     browser.find_element(By.ID, about_link_button).click()
-    assert browser.current_url == about_url, auth_pos_message
+    assert browser.current_url == about_url, url_pos_message
 
 
 # Страница нерабочая с ошибкой, но считаю, что так и надо, чтобы тест проходил
@@ -243,8 +243,12 @@ def test_delete_cards_from_cart(browser):
 # --------------------------------------------------------------------------------
 def test_register_form_with_checkbox(browser, fake_username, fake_password):
     browser.get(register_form_url)
+    register_button = browser.find_element(By.ID, reg_register_button)
     browser.find_element(By.ID, reg_username_field).send_keys(fake_username)
+    assert not register_button.is_enabled(), reg_not_enabled_button
     browser.find_element(By.ID, reg_password_field).send_keys(fake_password)
+    assert not register_button.is_enabled(), reg_not_enabled_button
     browser.find_element(By.ID, reg_checkbox).click()
-    browser.find_element(By.ID, reg_register_button).click()
-    assert browser.current_url == f'{register_form_url}?'
+    assert register_button.is_enabled(), reg_enabled_button
+    register_button.click()
+    assert browser.current_url == f'{register_form_url}?', url_pos_message
