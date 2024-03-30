@@ -244,6 +244,7 @@ def test_delete_cards_from_cart(browser):
 def test_register_form_with_checkbox(browser, fake_username, fake_password):
     browser.get(register_form_url)
     register_button = browser.find_element(By.ID, reg_register_button)
+    assert not register_button.is_enabled(), reg_not_enabled_button
     browser.find_element(By.ID, reg_username_field).send_keys(fake_username)
     assert not register_button.is_enabled(), reg_not_enabled_button
     browser.find_element(By.ID, reg_password_field).send_keys(fake_password)
