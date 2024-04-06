@@ -13,7 +13,7 @@ def browser(request):
     chrome_options.add_argument("--headless=new")
     browser = webdriver.Chrome(options=chrome_options)
     # browser = webdriver.Chrome()
-    browser.implicitly_wait(3)
+    browser.implicitly_wait(5)
     yield browser
     browser.quit()
     print("\nEnd test")

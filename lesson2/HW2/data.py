@@ -1,4 +1,3 @@
-# sleep_time = 0.075
 # URLS
 main_url = 'https://www.saucedemo.com/'
 catalog_url = f'{main_url}inventory.html'
@@ -21,6 +20,8 @@ select_az = "az"
 select_za = "za"
 select_lohi = "lohi"
 select_hilo = "hilo"
+
+
 
 # --------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------

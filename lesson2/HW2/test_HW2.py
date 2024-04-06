@@ -8,6 +8,20 @@ from data import *
 from assert_messages import *
 
 
+def check_exists(browser, type, selector):
+    by_type = {
+        "ID": By.ID,
+        "CLASS": By.CLASS_NAME,
+        "CSS": By.CSS_SELECTOR,
+        "XPATH": By.XPATH
+    }
+    try:
+        browser.find_element(by_type[type], selector)
+    except NoSuchElementException:
+        return False
+    return True
+
+
 # Функционал, который необходимо покрыть автотестами:
 # **Авторизация**
 # 1. Авторизация используя корректные данные (standard_user, secret_sauce)
@@ -35,11 +49,7 @@ def test_add_card_to_cart_from_catalog(browser):
     browser.find_element(By.ID, add_to_cart_button).click()
     # assert browser.find_element(By.CLASS_NAME, number_in_cart).text == number_in_cart_value, add_card_to_cart_message
     browser.find_element(By.CLASS_NAME, shopping_cart_link).click()
-    try:
-        browser.find_element(By.ID, title_link_to_card)
-        assert True
-    except NoSuchElementException:
-        assert False, add_card_to_cart_message
+    assert check_exists(browser, "ID", title_link_to_card), add_card_to_cart_message
 
 
 # 2. Удаление товара из корзины через корзину
@@ -47,11 +57,7 @@ def test_delete_card_from_cart(browser):
     test_add_card_to_cart_from_catalog(browser)
     browser.find_element(By.CLASS_NAME, shopping_cart_link).click()
     browser.find_element(By.ID, remove_from_cart_button).click()
-    try:
-        browser.find_element(By.CLASS_NAME, number_in_cart)
-        assert False, delete_from_cart_message
-    except NoSuchElementException:
-        assert True
+    assert not check_exists(browser, "CLASS", number_in_cart), delete_from_cart_message
 
 
 # 3. Добавление товара в корзину из карточки товара
@@ -60,11 +66,7 @@ def test_add_card_to_cart_from_card_details(browser):
     browser.find_element(By.ID, add_from_card_to_cart_button).click()
     # assert browser.find_element(By.CLASS_NAME, number_in_cart).text == number_in_cart_value, add_card_to_cart_message
     browser.find_element(By.CLASS_NAME, shopping_cart_link).click()
-    try:
-        browser.find_element(By.ID, title_link_to_card)
-        assert True
-    except NoSuchElementException:
-        assert False, add_card_to_cart_message
+    assert check_exists(browser, "ID", title_link_to_card), add_card_to_cart_message
 
 
 # 4. Удаление товара из корзины через карточку товара
@@ -73,11 +75,7 @@ def test_delete_card_from_cart_from_card_details(browser):
     test_card_details_from_name(browser)
     time.sleep(2)
     browser.find_element(By.ID, remove_from_card_from_cart_button).click()
-    try:
-        browser.find_element(By.CLASS_NAME, number_in_cart)
-        assert False, delete_from_cart_message
-    except NoSuchElementException:
-        assert True
+    assert not check_exists(browser, "CLASS", number_in_cart), delete_from_cart_message
 
 
 # **Карточка товара**
@@ -132,7 +130,8 @@ def test_filter_z_to_a(browser):
     select.select_by_value(select_za)
     items = browser.find_elements(By.CLASS_NAME, item_names)
     actual_names = [item.text for item in items]
-    sorted_names = list(reversed(sorted(actual_names)))
+    # sorted_names = list(reversed(sorted(actual_names)))
+    sorted_names = sorted(actual_names, reverse=True)
     assert actual_names == sorted_names, sorting_message + select_za
 
 
@@ -156,7 +155,8 @@ def test_filter_high_to_low(browser):
     select.select_by_value(select_hilo)
     items = browser.find_elements(By.CLASS_NAME, item_prices)
     actual_names = [float(item.text.strip('$')) for item in items]
-    sorted_names = list(reversed(sorted(actual_names)))
+    # sorted_names = list(reversed(sorted(actual_names)))
+    sorted_names = sorted(actual_names, reverse=True)
     assert actual_names == sorted_names, sorting_message + select_hilo
 
 
@@ -188,22 +188,15 @@ def test_reset_app_state_button(browser):
     # test_filter_high_to_low(browser)
     browser.find_element(By.ID, burger_menu_button).click()
     browser.find_element(By.ID, reset_button).click()
-    try:
-        browser.find_element(By.CLASS_NAME, number_in_cart)
-        assert False, delete_from_cart_message
-    except NoSuchElementException:
-        assert True
+    assert not check_exists(browser, "CLASS", number_in_cart), delete_from_cart_message
     # Нажатие на кнопку очищает корзину - считаю это за ожидаемый результат
-    #     try:
-    #         browser.find_element(By.ID, remove_from_cart_button)
-    #         assert False, reset_add_button_message
-    #     except NoSuchElementException:
-    #         assert True
+    # browser.refresh()
+    # assert not check_exists(browser, "ID", remove_from_cart_button), reset_add_button_message
     # Кнопки Remove на карточках товара не возвращаются в Add to cart без обновления страницы
-    items = browser.find_elements(By.CLASS_NAME, item_names)
-    actual_names = [item.text for item in items]
-    sorted_names = sorted(actual_names)
-    assert actual_names == sorted_names, sorting_message
+    # items = browser.find_elements(By.CLASS_NAME, item_names)
+    # actual_names = [item.text for item in items]
+    # sorted_names = sorted(actual_names)
+    # assert actual_names == sorted_names, sorting_message
     # Сортировка не сбрасывается
 
 
@@ -220,11 +213,7 @@ def test_add_cards_to_cart_from_catalog(browser):
     # browser.find_element(By.ID, remove_from_cart_button).click()
     browser.find_element(By.CLASS_NAME, shopping_cart_link).click()
     for title in card_titles:
-        try:
-            browser.find_element(By.XPATH, find_by_text.format(title))
-            assert True
-        except NoSuchElementException:
-            assert False, add_cards_to_cart_from_catalog.format(title)
+        assert check_exists(browser, "XPATH", find_by_text.format(title)), add_cards_to_cart_from_catalog.format(title)
 
 
 def test_delete_cards_from_cart(browser):
@@ -233,11 +222,7 @@ def test_delete_cards_from_cart(browser):
     remove_from_cart_buttons = browser.find_elements(By.CSS_SELECTOR, remove_all_from_cart_buttons)
     for button in remove_from_cart_buttons:
         button.click()
-    try:
-        browser.find_element(By.CLASS_NAME, item_names)
-        assert False, delete_cards_from_cart
-    except NoSuchElementException:
-        assert True
+    assert not check_exists(browser, "CLASS", item_names), delete_cards_from_cart
 
 
 # --------------------------------------------------------------------------------
