@@ -1,7 +1,5 @@
 # created by virtualenv automatically
-venv
-test.py
-lesson3
+.venv
 lesson4
 lesson5
 lesson6
