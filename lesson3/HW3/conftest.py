@@ -1,7 +1,6 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from faker import Faker
 
 
 @pytest.fixture()
@@ -15,33 +14,3 @@ def browser(request):
     yield browser
     browser.quit()
     print("\nEnd test")
-
-
-@pytest.fixture
-def fake_password():
-    fake = Faker()
-    return fake.password()
-
-
-@pytest.fixture
-def fake_username():
-    fake = Faker()
-    return fake.user_name()
-
-
-@pytest.fixture
-def fake_firstname():
-    fake = Faker()
-    return fake.first_name()
-
-
-@pytest.fixture
-def fake_lastname():
-    fake = Faker()
-    return fake.last_name()
-
-
-@pytest.fixture
-def fake_zipcode():
-    fake = Faker()
-    return fake.zipcode()

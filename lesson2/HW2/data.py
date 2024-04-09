@@ -10,19 +10,16 @@ about_url = 'https://saucelabs.com/'
 username_pos = "standard_user"
 password_pos = "secret_sauce"
 
-# texts
+# texts from the site for comparison
 error_auth_neg = "Epic sadface: Username and password do not match any user in this service"
 order_pos_text = "Thank you for your order!"
 
-# value
+# values
 # number_in_cart_value = "1"
 select_az = "az"
 select_za = "za"
 select_lohi = "lohi"
 select_hilo = "hilo"
 
-
-
-# --------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------
 register_form_url = "https://victoretc.github.io/webelements_information/"
