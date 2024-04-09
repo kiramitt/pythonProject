@@ -4,6 +4,7 @@ from locators import *
 from data import *
 from assert_messages import *
 
+
 # Функционал, который необходимо покрыть автотестами:
 # **Авторизация**
 # 1. Авторизация используя корректные данные (standard_user, secret_sauce)
@@ -65,6 +66,11 @@ def test_card_details_from_image(browser):
     test_auth_positive(browser)
     browser.find_element(*image_link_to_card).click()
     assert browser.current_url == card_url, card_details_message
+
+
+def test_card_details_from_image2(browser1):
+    browser1.find_element(*image_link_to_card).click()
+    assert browser1.current_url == card_url, card_details_message
 
 
 # 2. Успешный переход к карточке товара после клика на название товара
