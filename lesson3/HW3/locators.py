@@ -23,3 +23,12 @@ register_button = (By.ID, "register")
 loader = (By.ID, "loader")
 
 success_message = (By.ID, "successMessage")
+
+# ---------------------------------------------------------------
+
+# add_delete_element
+add_button = (By.XPATH, "//button[text()='Add Element']")
+delete_button = (By.XPATH, "//button[text()='Delete']")
+
+# basic_auth
+base_auth_message = (By.CSS_SELECTOR, "#content > div > p")

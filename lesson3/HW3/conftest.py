@@ -21,6 +21,7 @@ def wait(driver):
     wait = WebDriverWait(driver, timeout=10)
     return wait
 
+
 @pytest.fixture()
 def browser():
     print(f'\nStart test')
@@ -32,6 +33,3 @@ def browser():
     yield browser
     browser.quit()
     print("\nEnd test")
-
-
-

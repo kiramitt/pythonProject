@@ -1,7 +1,10 @@
 import time
-from locators import *
-from assert_messages import *
+from random import *
+
 from selenium.webdriver.support import expected_conditions as EC
+
+from assert_messages import *
+from locators import *
 
 
 # Необходимо написать 3 автотеста для данной страницы:
@@ -59,16 +62,30 @@ def test_registration_functionality_with_time_sleep(driver):
             not check_exists(driver, loader)), assert_success_message
 
 
+# ---------------------------------------------------------------
+
 # Так же необходимо написать несколько автотестов для сайта https://the-internet.herokuapp.com/ опираясь на
 # полученные знания и поиск в интернете новой информации.
 # https://the-internet.herokuapp.com/add_remove_elements/ (Необходимо создать и удалить элемент)
 def test_add_delete_element(browser):
     browser.get(add_delete_element_url)
+    assert not check_exists(browser, delete_button), assert_delete_button_exist
+    count_of_buttons = randint(2, 20)
+    for i in range(count_of_buttons):
+        browser.find_element(*add_button).click()
+    delete_buttons = browser.find_elements(*delete_button)
+    assert (l := len(delete_buttons)) == count_of_buttons, assert_count_delete_button_exist.format(count_of_buttons, l)
+    for button in delete_buttons:
+        button.click()
+    assert not check_exists(browser,delete_button), assert_delete_button_exist
 
 
-# https://the-internet.herokuapp.com/basic_auth
+# https://the-internet.herokuapp.com/basic_auth (Необходимо пройти базовую авторизацию)
 def test_basic_auth(browser):
     browser.get(basic_auth_url)
+    browser.get(f"https://{base_login}:{base_login}@the-internet.herokuapp.com/basic_auth/")
+    assert (check_exists(browser, base_auth_message) and browser.find_element(*base_auth_message).text ==
+            base_auth_text), assert_base_auth_message
 
 
 # https://the-internet.herokuapp.com/broken_images (Необходимо найти сломанные изображения)
