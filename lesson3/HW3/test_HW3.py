@@ -11,14 +11,17 @@ from locators import *
 # С использованием Explicit waits и Expected Conditions
 def test_registration_functionality_with_explicit_waits(driver, wait):
     driver.get(main_url)
-    assert driver.find_element(*head_title).text == expected_head_title, assert_head_title
+    title = wait.until(EC.visibility_of_element_located(head_title))
+    assert title.text == expected_head_title, assert_head_title
     wait.until(EC.element_to_be_clickable(driver.find_element(*start_test_button))).click()
-    driver.find_element(*login_field).send_keys(login)
-    driver.find_element(*password_field).send_keys(password)
-    checkbox_agree = driver.find_element(*agree_checkbox)
+    login_input = wait.until(EC.visibility_of_element_located(login_field))
+    login_input.send_keys(login)
+    password_input = wait.until(EC.visibility_of_element_located(password_field))
+    password_input.send_keys(password)
+    checkbox_agree = wait.until(EC.visibility_of_element_located(agree_checkbox))
     checkbox_agree.click()
     assert checkbox_agree.is_selected()
-    driver.find_element(*register_button).click()
+    wait.until(EC.element_to_be_clickable(register_button)).click()
     assert check_exists(driver, loader), assert_loader_exist
     wait.until(EC.visibility_of_element_located(success_message))
     assert (check_exists(driver, success_message) and
