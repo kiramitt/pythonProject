@@ -26,7 +26,7 @@ def wait(driver):
 def browser():
     print(f'\nStart test')
     chrome_options = Options()
-    # chrome_options.add_argument("--headless=new")
+    chrome_options.add_argument("--headless=new")
     chrome_options.add_argument('--start-maximized')
     browser = webdriver.Chrome(options=chrome_options)
     browser.implicitly_wait(10)

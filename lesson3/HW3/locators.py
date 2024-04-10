@@ -32,3 +32,10 @@ delete_button = (By.XPATH, "//button[text()='Delete']")
 
 # basic_auth
 base_auth_message = (By.CSS_SELECTOR, "#content > div > p")
+
+# broken_images
+images = (By.TAG_NAME, "img")
+
+# checkboxes
+checkbox1 = (By.XPATH, "//*[@id='checkboxes']/input[1]")
+checkbox2 = (By.XPATH, "//*[@id='checkboxes']/input[2]")

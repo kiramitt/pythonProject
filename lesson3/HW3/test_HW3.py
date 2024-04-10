@@ -77,7 +77,7 @@ def test_add_delete_element(browser):
     assert (l := len(delete_buttons)) == count_of_buttons, assert_count_delete_button_exist.format(count_of_buttons, l)
     for button in delete_buttons:
         button.click()
-    assert not check_exists(browser,delete_button), assert_delete_button_exist
+    assert not check_exists(browser, delete_button), assert_delete_button_exist
 
 
 # https://the-internet.herokuapp.com/basic_auth (Необходимо пройти базовую авторизацию)
@@ -91,8 +91,27 @@ def test_basic_auth(browser):
 # https://the-internet.herokuapp.com/broken_images (Необходимо найти сломанные изображения)
 def test_broken_images(browser):
     browser.get(broken_images_url)
+    all_images = browser.find_elements(*images)
+    broken_images = []
+    all_images_urls = []
+    for img in all_images:
+        all_images_urls.append(img.get_attribute("src"))
+    for url in all_images_urls:
+        browser.get(url)
+        if not check_exists(browser, images):
+            broken_images.append(url)
+    print(broken_images)
+    assert broken_images == broken_images_links, assert_broken_images
 
 
 # https://the-internet.herokuapp.com/checkboxes (Практика с чек боксами)
 def test_checkboxes(browser):
     browser.get(checkboxes_url)
+    assert check_exists(browser, checkbox1) and check_exists(browser, checkbox2)
+    check_box1 = browser.find_element(*checkbox1)
+    check_box2 = browser.find_element(*checkbox2)
+    assert not check_box1.is_selected() and check_box2.is_selected()
+    check_box1.click()
+    check_box2.click()
+    assert check_exists(browser, checkbox1) and check_box1.is_selected()
+    assert check_exists(browser, checkbox2) and not check_box2.is_selected()

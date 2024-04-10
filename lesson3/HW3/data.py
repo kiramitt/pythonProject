@@ -15,9 +15,9 @@ expected_success_message = "Вы успешно зарегистрированы
 # URLS
 base_url = "https://the-internet.herokuapp.com/"
 add_delete_element_url = f"{base_url}add_remove_elements/"
-basic_auth_url = f"{base_url}basic_auth/"
-broken_images_url = f"{base_url}broken_images/"
-checkboxes_url = f"{base_url}checkboxes/"
+basic_auth_url = f"{base_url}basic_auth"
+broken_images_url = f"{base_url}broken_images"
+checkboxes_url = f"{base_url}checkboxes"
 
 # base_auth
 base_login = "admin"
@@ -25,7 +25,9 @@ base_password = "admin"
 base_login_neg = "not admin"
 base_password_neg = "not admin"
 
-# Texts on site
+# Text on site
 base_auth_text = "Congratulations! You must have the proper credentials."
 
+# broken_images
+broken_images_links = ['https://the-internet.herokuapp.com/asdf.jpg', 'https://the-internet.herokuapp.com/hjkl.jpg']
 

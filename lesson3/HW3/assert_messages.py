@@ -8,3 +8,4 @@ assert_delete_button_exist = "Button Delete must NOT exist"
 assert_count_delete_button_exist = "Expected count: {}, Real count: {}"
 
 assert_base_auth_message = "Authorisation error"
+assert_broken_images = "Broken images NOT found"
